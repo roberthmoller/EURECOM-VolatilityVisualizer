@@ -1,8 +1,8 @@
 import attrs
 import streamlit as st
-from streamlit_timeline import timeline
 
 # Set server.maxUploadSize to suitable size for vmem file
+from timeline import Slide, Text, DateTime, Timeline
 
 st.set_page_config(
     page_title="Volatility Visualizer",
@@ -23,27 +23,37 @@ else:
     st.info("Please upload a memfile")
 
 st.header("Summary")
-timeline({
-    'events': [
-        {
-            'start_date': {'year': '2022', 'month': '01', 'day': '01', 'hour': '12', 'minute': '00'},
-            'title': 'event 1',
-            'group': 'Processes',
-            'text': {
-                'headline': 'event 2',
-                'text': 'This is a test event',
-            },
-        },
-        {
-            'start_date': {'year': '2022', 'month': '01', 'day': '01', 'hour': '12', 'minute': '00'},
-            'text': {
-                'headline': 'event 2',
-                'text': 'This is a test event',
-            },
-            'group': 'Connections',
-        },
+
+Timeline(
+    height=300,
+    events=[
+        Slide(
+            group="group1",
+            start_date=DateTime(year='2020'),
+            text=Text(
+                headline="Volatility Visualizer",
+                text='foo'
+            )
+        ),
+        Slide(
+            group="group2",
+            start_date=DateTime(year='2020'),
+            text=Text(
+                headline="Volatility Visualizer",
+                text='foo'
+            )
+        ),
+        Slide(
+            group="group3",
+            start_date=DateTime(year='2020'),
+            text=Text(
+                headline="Volatility Visualizer",
+                text='foo'
+            )
+        ),
     ],
-}, height=500)
+)
+
 # metrics of files
 # timeline of events
 
