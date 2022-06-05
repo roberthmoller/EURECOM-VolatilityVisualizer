@@ -97,7 +97,7 @@ class PSTree:
     def graph(self):
 
         digraph = graphviz.Digraph(
-            node_attr={'shape': 'box', 'fontsize': '8', 'height': '0.3', 'width': '1.5'},
+            node_attr={'shape': 'record', 'fontsize': '8', 'height': '0.3', 'width': '1.5'},
             graph_attr={'splines': 'ortho', 'bgcolor': Theme.bc},
         )
         self.df.sort_values(by=['TIME'])
@@ -111,7 +111,10 @@ class PSTree:
                 c.node(f'time{index}', f"{two_line_time}", shape='plaintext', fontcolor=Theme.tc)
                 for row_index in group:
                     row = self.df.iloc[row_index]
-                    c.node(row['PID'], row['NAME'], fillcolor=Theme.sbc, style='filled', fontcolor=Theme.tc)
+                    c.node(row['PID'], f"""
+                    {{NAME|PID|THDS|HNDS}}|
+                    {{{row['NAME']}|{row['PID']}|{row['THDS']}|{row['HNDS']}}}
+                    """, fillcolor=Theme.sbc, style='filled', fontcolor=Theme.tc)
             if index != 0:
                 digraph.edge(f'time{index - 1}', f'time{index}', style='invis')
 
@@ -132,4 +135,5 @@ for file in files:
 
         st.subheader("Content")
         pstree = PSTree(file)
+        st.code(pstree.content)
         st.graphviz_chart(pstree.graph())
