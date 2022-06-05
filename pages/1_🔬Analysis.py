@@ -52,6 +52,13 @@ from re import sub
 from dataclasses import dataclass
 
 
+class Theme:
+    pc = st.get_option('theme.primaryColor')
+    bc = st.get_option('theme.backgroundColor')
+    sbc = st.get_option('theme.secondaryBackgroundColor')
+    tc = st.get_option('theme.textColor')
+
+
 class PSTree:
     class PS:
         def __init__(self, row):
@@ -74,94 +81,45 @@ class PSTree:
         lines = stripped.splitlines()
         header = lines[0].upper().split(',')
         header.insert(0, 'LEVEL')
-        header.insert(-1, 'DATE')
         header.append('ZONE')
+
         data = [row.split(',') for row in lines[2:]]  # skip [1] as it is a horizontal line # todo make private
         for index, row in enumerate(data):
             data[index][0] = len(row[0])
+            data[index][-3] = ' '.join(row[-3:-1])
+            del data[index][-2]
 
         self.df = pd.DataFrame(data=data, columns=header)
 
     def __str__(self):
-        return self.stripped
+        return self.content
 
     def graph(self):
+
         digraph = graphviz.Digraph(
-            node_attr={'shape': 'box', 'fontsize': '14', 'height': '.1', 'width': '1'},
-            graph_attr={'size': '10,10'}
+            node_attr={'shape': 'box', 'fontsize': '8', 'height': '0.3', 'width': '1.5'},
+            graph_attr={'splines': 'ortho', 'bgcolor': Theme.bc},
         )
         self.df.sort_values(by=['TIME'])
+        time_groups = self.df.groupby('TIME').groups
+        digraph.attr(compound='true')
 
-        for index, row in self.df.iterrows():
-            with digraph.subgraph() as c:
-                c.attr(rank='same')
-                c.node(f'time{index}', f'{row["DATE"]}\n{row["TIME"]}', shape='plaintext')
-                c.node(row['PID'], row['NAME'])
-
+        for index, (time, group) in enumerate(time_groups.items()):
+            with digraph.subgraph(name=f't{index}') as c:
+                c.attr(rank='same', style='filled', fillcolor='red')
+                two_line_time = time.replace(' ', '\n')
+                c.node(f'time{index}', f"{two_line_time}", shape='plaintext', fontcolor=Theme.tc)
+                for row_index in group:
+                    row = self.df.iloc[row_index]
+                    c.node(row['PID'], row['NAME'], fillcolor=Theme.sbc, style='filled', fontcolor=Theme.tc)
             if index != 0:
-                digraph.edge(f'time{index - 1}', f'time{index}')
+                digraph.edge(f'time{index - 1}', f'time{index}', style='invis')
 
         for index, row in self.df.iterrows():
             if row['LEVEL'] != 0:
-                digraph.edge(row['PPID'], row['PID'])
+                digraph.edge(row['PPID'], row['PID'], arrowhead='vee', color=Theme.tc)
 
         return digraph
-
-        # digraph shells {
-        #     size="7,8";
-        #     node [fontsize=24, shape = plaintext];
-        #
-        #     1972 -> 1976;
-        #     1976 -> 1978;
-        #     1978 -> 1980;
-        #     1980 -> 1982;
-        #     1982 -> 1984;
-        #     1984 -> 1986;
-        #     1986 -> 1988;
-        #     1988 -> 1990;
-        #     1990 -> future;
-        #
-        #     node [fontsize=20, shape = box];
-        #     { rank=same;  1976 Mashey Bourne; }
-        #     { rank=same;  1978 Formshell csh; }
-        #     { rank=same;  1980 esh vsh; }
-        #     { rank=same;  1982 ksh "System-V"; }
-        #     { rank=same;  1984 v9sh tcsh; }
-        #     { rank=same;  1986 "ksh-i"; }
-        #     { rank=same;  1988 KornShell Perl rc; }
-        #     { rank=same;  1990 tcl Bash; }
-        #     { rank=same;  "future" POSIX "ksh-POSIX"; }
-        #
-        #     Thompson -> Mashey;
-        #     Thompson -> Bourne;
-        #     Thompson -> csh;
-        #     csh -> tcsh;
-        #     Bourne -> ksh;
-        #     Bourne -> esh;
-        #     Bourne -> vsh;
-        #     Bourne -> "System-V";
-        #     Bourne -> v9sh;
-        #     v9sh -> rc;
-        #     Bourne -> Bash;
-        #     "ksh-i" -> Bash;
-        #     KornShell -> Bash;
-        #     esh -> ksh;
-        #     vsh -> ksh;
-        #     Formshell -> ksh;
-        #     csh -> ksh;
-        #     KornShell -> POSIX;
-        #     "System-V" -> POSIX;
-        #     ksh -> "ksh-i";
-        #     "ksh-i" -> KornShell;
-        #     KornShell -> "ksh-POSIX";
-        #     Bourne -> Formshell;
-        #
-        #     edge [style=invis];
-        #     1984 -> v9sh -> tcsh ;
-        #     1988 -> rc -> KornShell;
-        #     Formshell -> csh;
-        #     KornShell -> Perl;
-        # }
 
 
 for file in files:
@@ -174,50 +132,4 @@ for file in files:
 
         st.subheader("Content")
         pstree = PSTree(file)
-        st.code(pstree.content)
-        # st.dataframe(pstree.df)
         st.graphviz_chart(pstree.graph())
-        # st.json(pstree.data)
-        # st.json(pstree.tree)
-        # st.graphviz_chart("""
-        #     digraph G {
-        #       edge [arrowhead=none];
-        #       nodesep = 0.1;
-        #       ranksep=0.5;
-        #       splines = ortho;
-        #       rankdir = LR;
-        #
-        #       node [ shape="box" ];
-        #       A1 B4 B5 B6 B3 B2 B1;
-        #
-        #       node [ shape="point", width = 0, height = 0 ];
-        #       { rank = same; W4 W5 W6 W0 W3 W2 W1 }
-        #
-        #       A1 -> W0;
-        #       W4 -> W5 -> W6 -> W0 -> W3 -> W2 -> W1;        /* critical! */
-        #       W1 -> B1;
-        #       W2 -> B2;
-        #       W3 -> B3;
-        #       W4 -> B4;
-        #       W5 -> B5;
-        #       W6 -> B6;
-        #     }
-        # """)
-        # Timeline(
-        #     height=400,
-        #     events=[
-        #         Slide(
-        #             start_date=ps.date,
-        #             text=Text(
-        #                 headline=ps.name,
-        #                 text=f"pid: {ps.pid}\nppid: {ps.ppid}\nthreads: {ps.threads}\nhnds: {ps.hnds}\n{ps.date}",
-        #             ),
-        #
-        #         )
-        #         for ps in pstree.tree.values()]
-        # )
-
-    #
-    # def render(self):
-    #     st.subheader("PSTree")
-    #     st.code(self.processes)
