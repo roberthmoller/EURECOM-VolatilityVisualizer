@@ -1,0 +1,19 @@
+Offset(P)  Name                    PID pslist psscan thrdproc pspcid csrss session deskthrd ExitTime
+---------- -------------------- ------ ------ ------ -------- ------ ----- ------- -------- --------
+0x02498700 winlogon.exe            608 True   True   True     True   True  True    True     
+0x02511360 svchost.exe             824 True   True   True     True   True  True    True     
+0x022e8da0 alg.exe                 788 True   True   True     True   True  True    True     
+0x020b17b8 spoolsv.exe            1512 True   True   True     True   True  True    True     
+0x0202ab28 services.exe            652 True   True   True     True   True  True    True     
+0x02495650 svchost.exe            1220 True   True   True     True   True  True    True     
+0x0207bda0 reader_sl.exe          1640 True   True   True     True   True  True    True     
+0x025001d0 svchost.exe            1004 True   True   True     True   True  True    True     
+0x02029ab8 svchost.exe             908 True   True   True     True   True  True    True     
+0x023fcda0 wuauclt.exe            1136 True   True   True     True   True  True    True     
+0x0225bda0 wuauclt.exe            1588 True   True   True     True   True  True    True     
+0x0202a3b8 lsass.exe               664 True   True   True     True   True  True    True     
+0x023dea70 explorer.exe           1484 True   True   True     True   True  True    True     
+0x023dfda0 svchost.exe            1056 True   True   True     True   True  True    True     
+0x024f1020 smss.exe                368 True   True   True     True   False False   False    
+0x025c89c8 System                    4 True   True   True     True   False False   False    
+0x024a0598 csrss.exe               584 True   True   True     True   False True    True     
