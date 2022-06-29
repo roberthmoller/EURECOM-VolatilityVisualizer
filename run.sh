@@ -1,6 +1,8 @@
 #!/bin/bash
+source .venv/bin/activate
 
-serverAddress="https://roberthmoller-volatility-visualizer-vw4r7wqq3wv49-8501.githubpreview.dev"
-serverPort=80
+gitServerPort=8888
+browserServerPort=80
+browserServerAddress="$CODESPACE_NAME"-"$gitServerPort".githubpreview.dev
 
-streamlit run --browser.serverPort $serverPort --browser.serverAddress $serverAddress *Home*
+streamlit run --server.port $gitServerPort --browser.serverPort $browserServerPort --browser.serverAddress $browserServerAddress *Home*
