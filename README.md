@@ -14,5 +14,5 @@ Remaining tasks
    5. pslist
    6. procdump
 2. Aggregate info
-2. Summarize info
-3. Query internet
+3. Summarize info
+4. Query internet

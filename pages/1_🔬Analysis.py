@@ -1,11 +1,13 @@
 import os
+import sys
+
 from typing import List
 
+import streamlit as st
 from streamlit.uploaded_file_manager import UploadedFile, UploadedFileRec
 
 from lib.formats import *
 
-# Set server.maxUploadSize to suitable size for vmem file
 from lib.formats.extract import Extract
 from lib.guessers.guesser import TypeGuess
 
@@ -15,13 +17,9 @@ st.set_page_config(
     layout="wide",
 )
 
-
-
 with st.sidebar:
     uploaded = st.file_uploader("Files to analyse", accept_multiple_files=True)
     samples: List[UploadedFile] = list(uploaded)
-
-st.title("Analysis")
 
 if len(uploaded) == 0:
     st.warning("Please upload files to start")
@@ -38,7 +36,9 @@ elif len(uploaded) > 0:
 elif len(samples) == 0:
     st.stop()
 
+st.title("Analysis")
 for sample in samples:
+    st.markdown("""---""")
     st.caption(sample.name)
     # with st.expander(sample.name, expanded=True):
     col = st.columns(4)
