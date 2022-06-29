@@ -10,6 +10,8 @@ git clone https://github.com/roberthmoller/volatility-visualizer.git
 2- install requirements:
 pip install requirements.txt
 
+3- ./run.sh
+
 ## Available Plugins
    1. pstree
    2. pslist
