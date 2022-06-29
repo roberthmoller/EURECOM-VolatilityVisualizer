@@ -5,7 +5,9 @@ We're developing this project based on Volatility 2.
 
 ## Installation steps:
 1- Clone the repository:
+git clone https://github.com/roberthmoller/volatility-visualizer.git
 2- install requirements:
+pip install requirements.txt
 
 ## Available Plugins
    1. pstree
