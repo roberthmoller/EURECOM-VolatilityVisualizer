@@ -1,18 +1,29 @@
 # volatility-visualizer
-Tool to visualize the command output of Volatility CLI
+Tool to visualize the command output of Volatility CLI but in a creative simple way.
+This work is still in progress to enable the full range of Volatility functionality.
+We're developing this project based on Volatility 2.
 
+Report.pdf is for further explanation about the project and its components
 
+## Installation steps:
+1- Clone the repository:
+git clone https://github.com/roberthmoller/volatility-visualizer.git
 
-## Todo
-Remaining tasks
+2- install requirements:
+pip install requirements.txt
 
+3- ./run.sh
+
+## Available Plugins
+   1. pstree
+   2. pslist
+   3. psxview
+   4. procdump
+   5. connscann
+   6. sockets
+ 
+## Available Options
 1. Visualize
-   1. ~~pstree~~
-   2. connscann
-   3. connscan
-   4. sockets
-   5. pslist
-   6. procdump
 2. Aggregate info
-3. Summarize info
-4. Query internet
+2. Summarize info
+3. Query internet
