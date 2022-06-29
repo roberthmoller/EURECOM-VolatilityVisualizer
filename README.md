@@ -7,7 +7,7 @@ Tool to visualize the command output of Volatility CLI
 Remaining tasks
 
 1. Visualize
-   1. ~~pstree~~
+   1. pstree
    2. connscann
    3. connscan
    4. sockets
