@@ -18,8 +18,9 @@ pip install requirements.txt
    1. pstree
    2. pslist
    3. psxview
-   4.connscann
+   4. connscan
    5.sockets
+ 
  
 ## Available Options
 1. Visualize
