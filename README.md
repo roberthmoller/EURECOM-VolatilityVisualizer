@@ -19,7 +19,8 @@ pip install requirements.txt
    2. pslist
    3. psxview
    4. connscan
-   5.sockets
+   5. sockets
+   6. command line
  
  
 ## Available Options
