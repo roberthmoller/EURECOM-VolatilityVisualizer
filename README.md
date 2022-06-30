@@ -3,7 +3,7 @@ Tool to visualize the command output of Volatility CLI but in a creative simple 
 This work is still in progress to enable the full range of Volatility functionality.
 We're developing this project based on Volatility 2.
 
-Report.pdf is for further explanation about the project and its components
+
 
 ## Installation steps:
 1- Clone the repository:
