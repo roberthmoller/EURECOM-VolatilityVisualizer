@@ -26,6 +26,4 @@ pip install requirements.txt
  
 ## Available Options
 1. Visualize
-2. Aggregate info
 2. Summarize info
-3. Query internet
