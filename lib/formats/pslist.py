@@ -21,8 +21,6 @@ class PSList(Extract):
         lines = sub(" +", ',', self.data).splitlines()
         header = lines[0].upper().split(',')
         data = [row.split(',')[:-1] for row in lines[2:]]
-        # print('header', header)
-        # print('data', data)
         self.df = pd.DataFrame(data=data, columns=header, ) \
             .drop(['OFFSET(V)', 'PPID', 'EXIT', 'START', ''], axis=1) \
             .replace('-+', '0', regex=True) \
@@ -31,8 +29,6 @@ class PSList(Extract):
     @section('Chart')
     def chart(self):
         st.bar_chart(self.df.set_index('NAME').drop('PID', axis=1))
-        # for column in df.columns:
-        #     st.bar_chart(df[])
 
     @section('Table')
     def table(self):

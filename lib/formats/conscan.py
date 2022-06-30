@@ -41,8 +41,6 @@ class ConnScan(Extract):
             .pipe(mapColumn('LOCAL ADDRESS', lambda addr: addr.split(':')[0])) \
             .pipe(mapColumn('REMOTE ADDRESS', lambda addr: addr.split(':')[0]))
 
-        print(self.df)
-
     def content(self) -> None:
         pass
 

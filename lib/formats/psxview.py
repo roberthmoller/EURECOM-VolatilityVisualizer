@@ -28,8 +28,6 @@ class PSXView(Extract):
             .pipe(mapColumn('SESSION', lambda session: check if session == 'True' else cross)) \
             .pipe(mapColumn('DESKTHRD', lambda deskthrd: check if deskthrd == 'True' else cross))
 
-        print(self.df)
-
     def content(self) -> None:
         pass
 

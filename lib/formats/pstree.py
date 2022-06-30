@@ -38,6 +38,9 @@ class PSTree(Extract):
 
         self.df = pd.DataFrame(data=data, columns=header)
 
+    def content(self) -> None:
+        pass
+
     @section("Visualization")
     def visualize(self):
         """We visualize a timeline graph of the processes over time and their relationship"""
