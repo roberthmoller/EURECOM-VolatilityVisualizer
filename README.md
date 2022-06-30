@@ -21,6 +21,7 @@ pip install requirements.txt
    4. cmdline
    5. connscan
    6. sockets
+   7. strings
  
  
 ## Available Options
