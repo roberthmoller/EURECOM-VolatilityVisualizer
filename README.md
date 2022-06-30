@@ -12,7 +12,7 @@ git clone https://github.com/roberthmoller/volatility-visualizer.git
 2- install requirements:
 pip install requirements.txt
 
-3- ./run.sh
+3- streamlit run *Home.py
 
 ## Available Plugins
    1. pstree
