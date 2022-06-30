@@ -18,12 +18,12 @@ pip install requirements.txt
    1. pstree
    2. pslist
    3. psxview
-   4. procdump
-   5. connscann
+   4. cmdline
+   5. connscan
    6. sockets
+   7. strings
+ 
  
 ## Available Options
 1. Visualize
-2. Aggregate info
 2. Summarize info
-3. Query internet
